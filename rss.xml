@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
   <channel>
-    <title>My Custom Feed</title>
-    <link>https://example.com</link>
-    <description>This is my manually created RSS feed.</description>
+    <title>STATTRACK FEEDIN</title>
+    <link>https://tiger1team.github.io/RSS-gametime/rss.xml</link>
+    <description>blank</description>
     <language>en-us</language>
     <lastBuildDate>Thu, 04 Sep 2025 13:00:00 GMT</lastBuildDate>
     <pubDate>Thu, 04 Sep 2025 13:00:00 GMT</pubDate>
     
     <item>
-      <title>First Post</title>
+      <title>TEST</title>
       <link>https://example.com/posts/1</link>
       <description>This is the first post in my RSS feed.</description>
       <pubDate>Thu, 04 Sep 2025 12:00:00 GMT</pubDate>
