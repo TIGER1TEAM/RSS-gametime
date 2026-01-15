@@ -1,11 +1,11 @@
 name: Update Scores
 on:
   schedule:
-    - cron: '*/10 * * * *' # Runs every 10 mins
-  workflow_dispatch:      # Allows manual "Run Workflow" button
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
 
 permissions:
-  contents: write         # Explicitly grants write access
+  contents: write
 
 jobs:
   build:
@@ -16,10 +16,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.10' # Ensures we have ZoneInfo support
           
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests # Add 'pytz' here ONLY if using Option 1
         
       - name: Run script
         run: python update_scores.py
@@ -29,5 +29,4 @@ jobs:
           git config --global user.name "ScoreBot"
           git config --global user.email "bot@github.com"
           git add ticker.xml
-          # Only commit if there are actual changes
           git diff --quiet && git diff --staged --quiet || (git commit -m "Update scores" && git push)
