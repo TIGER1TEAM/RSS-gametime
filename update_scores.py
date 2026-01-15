@@ -1,42 +1,55 @@
 import requests
 import xml.etree.ElementTree as ET
+from datetime import datetime
+import pytz
 
 def update_scores():
-    # ESPN Endpoint for all FBS College Football games
-    url = "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&limit=100"
+    # Set to US/Central time
+    tz = pytz.timezone('US/Central')
+    today = datetime.now(tz).strftime('%Y%m%d')
+    
+    # ESPN API (Groups 80 = FBS Division 1)
+    url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&dates={today}"
     
     try:
-        # 10-second timeout to prevent "hanging" if ESPN is slow
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
         
-        # Build the RSS structure
         root = ET.Element("rss", version="2.0")
         channel = ET.SubElement(root, "channel")
-        ET.SubElement(channel, "title").text = "Live CFB Scores"
+        ET.SubElement(channel, "title").text = "STATTRACK LIVE"
         
-        for event in data.get('events', []):
-            comp = event['competitions'][0]
-            status = event['status']['type']['detail']
-            
-            # Identify Home and Away teams
-            t1 = comp['competitors'][0]
-            t2 = comp['competitors'][1]
-            
-            away = t1 if t1['homeAway'] == 'away' else t2
-            home = t1 if t1['homeAway'] == 'home' else t2
-            
-            # Format: Team 10, Team 7 (Final)
-            score_line = f"{away['team']['shortDisplayName']} {away['score']}, {home['team']['shortDisplayName']} {home['score']} ({status})"
-            
+        events = data.get('events', [])
+        
+        if not events:
             item = ET.SubElement(channel, "item")
-            ET.SubElement(item, "title").text = score_line
+            ET.SubElement(item, "title").text = "No games scheduled today."
+        else:
+            for event in events:
+                comp = event['competitions'][0]
+                status = event['status']['type']['detail']
+                
+                # Get the two teams
+                t1 = comp['competitors'][0]
+                t2 = comp['competitors'][1]
+                away = t1 if t1['homeAway'] == 'away' else t2
+                home = t1 if t1['homeAway'] == 'home' else t2
+                
+                # --- CHOOSE YOUR NAME STYLE HERE ---
+                # Use ['abbreviation'] for: "UGA 21, ALA 14"
+                # Use ['shortDisplayName'] for: "Georgia 21, Alabama 14"
+                away_name = away['team']['abbreviation'] 
+                home_name = home['team']['abbreviation']
+                
+                score_line = f"{away_name} {away['score']}, {home_name} {home['score']} ({status})"
+                
+                item = ET.SubElement(channel, "item")
+                ET.SubElement(item, "title").text = score_line
             
-        # Save to ticker.xml
         tree = ET.ElementTree(root)
         tree.write("ticker.xml", encoding="utf-8", xml_declaration=True)
-        print("Successfully updated ticker.xml")
+        print(f"Ticker updated for {today} (Central Time)")
 
     except Exception as e:
         print(f"Error: {e}")
