@@ -1,7 +1,7 @@
 name: Update Scores
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/8 * * * *'
   workflow_dispatch:
 
 permissions:
