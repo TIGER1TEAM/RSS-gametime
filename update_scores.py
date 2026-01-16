@@ -26,10 +26,17 @@ def update_scores():
         
         events = data.get('events', [])
         
+        item = ET.SubElement(channel, "item")
+        ET.SubElement(item, "title").text = "WELCOME TO STATTRACK"
+        
         if not events:
             item = ET.SubElement(channel, "item")
-            ET.SubElement(item, "title").text = f"No games today ({datetime.now(tz).strftime('%m/%d')})"
+            ET.SubElement(item, "title").text = f"No games week of {datetime.now(tz).strftime('%m/%d')}"
         else:
+            
+            item = ET.SubElement(channel, "item")
+        	ET.SubElement(item, "title").text = "THIS WEEK'S GAMES (NFL)"
+            
             for event in events:
                 comp = event['competitions'][0]
                 status = event['status']['type']['detail']
@@ -49,6 +56,9 @@ def update_scores():
                 item = ET.SubElement(channel, "item")
                 ET.SubElement(item, "title").text = score_line
             
+        item = ET.SubElement(channel, "item")
+        ET.SubElement(item, "title").text = f"LAST UPDATED: {datetime.now(tz).strftime('%m/%d')}"
+        
         tree = ET.ElementTree(root)
         tree.write("ticker.xml", encoding="utf-8", xml_declaration=True)
         print(f"Ticker updated for {today}")
