@@ -9,7 +9,11 @@ def update_scores():
     today = datetime.now(tz).strftime('%Y%m%d')
     
     # ESPN API (Groups 80 = FBS Division 1)
-    url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&dates={today}"
+    # CFB Line
+    #url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80&dates={today}"
+
+    # NFL Line
+    url = f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?dates={today}"
     
     try:
         response = requests.get(url, timeout=10)
