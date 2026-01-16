@@ -35,7 +35,7 @@ def update_scores():
         else:
             
             item = ET.SubElement(channel, "item")
-        	ET.SubElement(item, "title").text = "THIS WEEK'S GAMES (NFL)"
+            ET.SubElement(item, "title").text = "THIS WEEK'S GAMES (NFL)"
             
             for event in events:
                 comp = event['competitions'][0]
