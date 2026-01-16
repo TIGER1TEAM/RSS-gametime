@@ -18,7 +18,7 @@ def update_scores():
         
         root = ET.Element("rss", version="2.0")
         channel = ET.SubElement(root, "channel")
-        ET.SubElement(channel, "title").text = "CFB Ticker"
+        ET.SubElement(channel, "title").text = "STATTRACK LIVE"
         
         events = data.get('events', [])
         
