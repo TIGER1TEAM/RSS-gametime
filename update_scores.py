@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo # Standard in Python 3.9+
 
 def update_scores():
     # Set to US/Central time using built-in library
-    tz = ZoneInfo('America/Chicago')
+    tz = ZoneInfo('Etc/GMT-5')
     today = datetime.now(tz).strftime('%Y%m%d')
     
     # ESPN API (Groups 80 = FBS Division 1)
