@@ -5,15 +5,15 @@ from zoneinfo import ZoneInfo # Standard in Python 3.9+
 
 def update_scores():
     # Set to US/Central time using built-in library
-    tz = ZoneInfo('Etc/GMT-5')
+    tz = ZoneInfo('America/Chicago')
     today = datetime.now(tz).strftime('%Y%m%d')
     
     # ESPN API (Groups 80 = FBS Division 1)
     # CFB Line
-    url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80"
+    #url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80"
 
     # NFL Line
-    #url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
+    url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
     
     try:
         response = requests.get(url, timeout=10)
