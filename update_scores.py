@@ -44,7 +44,7 @@ def update_scores():
                 event['date'].replace('Z', '+00:00')
                 ).astimezone(ZoneInfo('America/Chicago'))
 
-                game_time_text = game_time.strftime('%#I:%M %p %Z')
+                game_time_text = game_time.strftime('%-I:%M %p %Z')
                 status = event['status']['type']['detail']
 
                 if event['status']['type']['state'] == 'pre':
@@ -66,7 +66,7 @@ def update_scores():
                 ET.SubElement(item, "title").text = score_line
             
         item = ET.SubElement(channel, "item")
-        ET.SubElement(item, "title").text = f"LAST UPDATED: {datetime.now(tz).strftime('%m/%d')}"
+        ET.SubElement(item, "title").text = f"LAST UPDATED: {datetime.now(tz).strftime('%-I:%M %p %m/%d')}"
         
         tree = ET.ElementTree(root)
         tree.write("ticker.xml", encoding="utf-8", xml_declaration=True)
