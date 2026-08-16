@@ -44,7 +44,7 @@ def update_scores():
                 event['date'].replace('Z', '+00:00')
                 ).astimezone(ZoneInfo('America/Chicago'))
 
-                game_time_text = game_time.strftime('%A, %B %-d %-I:%M %p %Z')
+                game_time_text = game_time.strftime('%A, %B %-d, %-I:%M %p %Z')
                 status = event['status']['type']['detail']
 
                 if event['status']['type']['state'] == 'pre':
