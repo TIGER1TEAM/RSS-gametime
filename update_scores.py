@@ -40,7 +40,15 @@ def update_scores():
             
             for event in events:
                 comp = event['competitions'][0]
+                game_time = datetime.fromisoformat(
+                event['date'].replace('Z', '+00:00')
+                ).astimezone(ZoneInfo('America/Chicago'))
+
+                game_time_text = game_time.strftime('%#I:%M %p %Z')
                 status = event['status']['type']['detail']
+
+                if event['status']['type']['state'] == 'pre':
+                    status = game_time_text
                 
                 # Sort Home vs Away
                 t1 = comp['competitors'][0]
