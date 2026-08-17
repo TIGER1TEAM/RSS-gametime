@@ -10,10 +10,10 @@ def update_scores():
     
     # ESPN API (Groups 80 = FBS Division 1)
     # CFB Line
-    url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80"
+    #url = f"https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?groups=80"
 
     # NFL Line
-    #url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
+    url = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
     
     try:
         response = requests.get(url, timeout=10)
@@ -36,7 +36,8 @@ def update_scores():
             
             item = ET.SubElement(channel, "item")
             #ET.SubElement(item, "title").text = "THIS WEEK'S GAMES (CFB)"
-            ET.SubElement(item, "title").text = "WEEK 1 GAMES (CFB)"
+            #ET.SubElement(item, "title").text = "WEEK 1 GAMES (CFB)"
+            ET.SubElement(item, "title").text = "THIS WEEK'S GAMES (NFL)"
             
             for event in events:
                 comp = event['competitions'][0]
